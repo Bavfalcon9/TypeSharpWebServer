@@ -1,4 +1,4 @@
-use std::{ http, fs };
+use std::{ http, fs, path };
 use typesharp::TSML;
 
 function main(): void {
@@ -10,7 +10,7 @@ function main(): void {
      let server: http.Server = httpServer.serve();
 
      if (server.err) {
-          eprintln!("Error in server thread: " + server.err.asString());
+          print("Error in server thread: " + server.err.asString());
      }
 
      async function markupServer(): Future<void> {
@@ -21,9 +21,19 @@ function main(): void {
                // route
                if (request.path === "/") {
                     request.render('home'); // this can throw an error if Home.tsml is not found!
+               } else if (path.exists("./" + request.path)) {
+                    if (path.resolve("./" + request.path).split('/')[0] !== "TypeSharpWebServer") {
+                         // check if not in local directory
+                         request.render('404', { fileName: request.path });
+                    } else {
+                         // ok
+                         request.render(TSML.template('[p] { "Exists!" }'));
+                    }
                } else {
                     request.render('404', { fileName: request.path });
                }
           }
      }
+
+     await markupServer();
 }
