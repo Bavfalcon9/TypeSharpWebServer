@@ -40,5 +40,5 @@ function main(): void {
           }
      }
 
-     await markupServer();
+     markupServer();
 }
