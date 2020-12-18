@@ -1,5 +1,5 @@
-import { http, fs } from 'std';
-import { TSML } from 'typesharp';
+use std::{ http, fs };
+use typesharp::TSML;
 
 function main(): void {
      const markupLangServer = new TSML.Server();
@@ -13,8 +13,7 @@ function main(): void {
           eprintln!("Error in server thread: " + server.err.asString());
      }
 
-     @thread({ sharing: true, immediate: true })
-     function markupServer(): Future<void> {
+     async function markupServer(): Future<void> {
           markupLangServer.bind(httpServer);
           markupLangServer.useFolder('./tsml');
 
