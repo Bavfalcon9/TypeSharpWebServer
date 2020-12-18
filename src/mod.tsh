@@ -19,6 +19,11 @@ function main(): void {
 
           for (const request of markupLangServer) {
                // route
+               if (request.isMessage()) {
+                    request.respond("Hi!");
+                    continue;
+               }
+
                if (request.path === "/") {
                     request.render('home'); // this can throw an error if Home.tsml is not found!
                } else if (path.exists("./" + request.path)) {
