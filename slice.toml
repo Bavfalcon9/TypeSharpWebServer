@@ -1,0 +1,9 @@
+[package]
+author = "John"
+version = "0.0.1"
+
+[typesharp]
+version = "0.0.34-futures-build-29"
+use_runtime = false
+bin_path = "tsharp-bin"
+compile_options = [ "use-experimental-codeblocks", "exclude-runtime", "use-gcc", "rmd" ]

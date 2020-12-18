@@ -1,2 +1,2 @@
 # TypeSharpWebServer
-A simple webserver showing how powerful typesharp is.
+A simple webserver.

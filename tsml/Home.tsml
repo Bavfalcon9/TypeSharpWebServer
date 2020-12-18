@@ -1,0 +1,47 @@
+# All typesharp code here is parsed into javascript.
+[NAME="home"]
+[body] {
+     @declare small {
+          extends: span
+          style: {
+               font-size: small;
+               color: aqua;
+          }
+     }
+     [p] {
+          "Hello World!\n" [small "This simple server is running on typesharp!"]
+     }
+
+     [p = errmsg] {
+          style: {
+               padding: 5px;
+               font-size: 3px;
+               color: red;
+               display: hidden;
+          }
+
+          "Uh oh! The server isn't running a typesharp markup language server :("
+     }
+
+     # built in typesharp utility
+     [spacer 10px]
+
+     [button = counter] {
+          text: "Click me to begin counting!"
+     }
+
+     (counter, 'click') => {
+          declare count = 0;
+          let text = "You've clicked: "
+          counter.text = text + count + " times!";
+     }
+}
+
+(body, 'load') => {
+     # global var.
+     if (this.isConnected()) {
+          server.send("hi from client!").fails {
+               errmsg.show();
+          }
+     }
+}

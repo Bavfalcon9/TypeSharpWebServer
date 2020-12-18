@@ -1,0 +1,15 @@
+[NAME="404"]
+
+response = server.response; # alias.
+
+[body] {
+     style: {
+          background-color: 0x292929;
+          color: white;
+          font-family: Arial;
+     }
+
+     [p] {
+          "Resource " + (response?.fileName) + "not found :("
+     }
+}
